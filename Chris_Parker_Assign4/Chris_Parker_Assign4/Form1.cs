@@ -146,5 +146,21 @@ namespace Chris_Parker_Assign4
         {
 
         }
+
+        private void linearMTxtChange(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(linearM.Text, "  ^ [0-9]"))
+            {
+                linearM.Text = "";
+            }
+        }
+
+        private void linearMKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
