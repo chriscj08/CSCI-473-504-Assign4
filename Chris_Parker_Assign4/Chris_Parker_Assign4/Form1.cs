@@ -13,10 +13,10 @@ namespace Chris_Parker_Assign4
     public partial class Form1 : Form
     {
         private static Pen whitePen;
-        private static int xMax = 4;
-        private static int xMin = -8;
-        private static int yMax = 7;
-        private static int yMin = -6;
+        private static int xMax = 10;
+        private static int xMin = -10;
+        private static int yMax = 10;
+        private static int yMin = -10;
 
         public Form1()
         {
@@ -31,9 +31,9 @@ namespace Chris_Parker_Assign4
             Graphics g = e.Graphics;
 
             //Horizontal Axis
-            g.DrawLine(whitePen, 0, ( Math.Abs(yMin) * CoordinatePlane.Height / Math.Abs(yMin) + Math.Abs(yMax)), CoordinatePlane.Width, (Math.Abs(yMin) * CoordinatePlane.Height / 13));
+            g.DrawLine(whitePen, 0, ( Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))), CoordinatePlane.Width, (Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))));
             //Vertical Axis
-            g.DrawLine(whitePen, (Math.Abs(xMin) * CoordinatePlane.Width / Math.Abs(xMin) + Math.Abs(xMax)), 0, (Math.Abs(xMin) * CoordinatePlane.Width / Math.Abs(xMin) + Math.Abs(xMax)), CoordinatePlane.Height);
+            g.DrawLine(whitePen, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), 0, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), CoordinatePlane.Height);
 
             //Finding x1 and x2
             int result = (-2 * xMin) + 3; 
