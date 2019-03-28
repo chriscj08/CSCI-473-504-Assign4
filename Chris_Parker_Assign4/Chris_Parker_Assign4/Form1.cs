@@ -51,14 +51,14 @@ namespace Chris_Parker_Assign4
 
             x1 = Math.Abs(xMin - x1);
 
-            if (result == yMax)
-            {
-                y1 = 0;
-            }
-            else
+            if ((-2 * xMin + 3) < yMax)
             {
                 x1 = 0;
                 y1 = Math.Abs(yMax - result);
+            } 
+            else
+            {
+                y1 = 0;
             }
 
             result = (-2 * xMax) + 3;
@@ -69,18 +69,21 @@ namespace Chris_Parker_Assign4
                 result = (-2 * x2) + 3;
             }
 
-            if (result == yMin)
+            x2++;
+
+            if ((-2 * xMax + 3) > yMin)
             {
-                y2 = Math.Abs(yMin) + Math.Abs(yMax); ;
+                x2 = Math.Abs(xMin) + Math.Abs(xMax);
+                y2 = Math.Abs(yMax) + Math.Abs(result);
             }
             else
             {
-                x2 = Math.Abs(xMin) + Math.Abs(xMax); 
-                y2 = Math.Abs(yMax) + Math.Abs(result);
+                x2 = Math.Abs(xMin) + x2;
+                y2 = Math.Abs(yMin) + Math.Abs(yMax); 
             }
             //Found x1 and x2
 
-            MessageBox.Show(x1.ToString() + " : " + x2.ToString() + " : " + y1.ToString() + " : " + y2.ToString() + " : ");
+           
 
             int denominator1 = Math.Abs(xMin) + Math.Abs(xMax);
             int denominator2 = Math.Abs(yMin) + Math.Abs(yMax);
