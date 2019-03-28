@@ -35,61 +35,7 @@ namespace Chris_Parker_Assign4
             //Vertical Axis
             g.DrawLine(whitePen, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), 0, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), CoordinatePlane.Height);
 
-            //Finding x1 and x2
-            int result = (-2 * xMin) + 3; 
-            int x1 = 0;
-            int y1 = 0;
-            int y2 = 0;
-
             
-            for (x1 = xMin; result > yMax; x1++)
-            {
-                result = (-2 * x1) + 3;
-            }
-
-            x1--;
-
-            x1 = Math.Abs(xMin - x1);
-
-            if ((-2 * xMin + 3) < yMax)
-            {
-                x1 = 0;
-                y1 = Math.Abs(yMax - result);
-            } 
-            else
-            {
-                y1 = 0;
-            }
-
-            result = (-2 * xMax) + 3;
-            int x2 = 0;
-
-            for (x2 = xMax; result < yMin; x2--)
-            {
-                result = (-2 * x2) + 3;
-            }
-
-            x2++;
-
-            if ((-2 * xMax + 3) > yMin)
-            {
-                x2 = Math.Abs(xMin) + Math.Abs(xMax);
-                y2 = Math.Abs(yMax) + Math.Abs(result);
-            }
-            else
-            {
-                x2 = Math.Abs(xMin) + x2;
-                y2 = Math.Abs(yMin) + Math.Abs(yMax); 
-            }
-            //Found x1 and x2
-
-           
-
-            int denominator1 = Math.Abs(xMin) + Math.Abs(xMax);
-            int denominator2 = Math.Abs(yMin) + Math.Abs(yMax);
-            
-            g.DrawLine(whitePen, (Math.Abs(x1) * CoordinatePlane.Width / denominator1), (Math.Abs(y1) * CoordinatePlane.Height / denominator2),
-                      (Math.Abs(x2) * CoordinatePlane.Width / denominator1), (Math.Abs(y2) * CoordinatePlane.Height / denominator2));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -127,7 +73,135 @@ namespace Chris_Parker_Assign4
 
         private void linearGraph(object sender, EventArgs e)
         {
+            Graphics g = CoordinatePlane.CreateGraphics();
 
+            
+            int m = Convert.ToInt32(linearM.Text);
+            int b = Convert.ToInt32(linearB.Text);
+            //Finding x1 and x2
+            int result = (m * xMin) + b;
+            int x1 = 0;
+            int y1 = 0;
+            int y2 = 0;
+            int x2 = 0;
+
+            if (m < 0)
+            {
+                for (x1 = xMin; result > yMax; x1++)
+                {
+                    result = (m * x1) + b;
+                }
+
+                x1--;
+
+                x1 = Math.Abs(xMin - x1);
+
+                if ((m * xMin + b) == yMax)
+                {
+                    y1 = 0;
+                    x1 = 0;
+                }
+
+                if ((m * xMin + b) < yMax)
+                {
+                    x1 = 0;
+                    y1 = Math.Abs(yMax - result);
+                }
+                else
+                {
+                    y1 = 0;
+                }
+
+                result = (m * xMax) + b;
+                
+
+                for (x2 = xMax; result < yMin; x2--)
+                {
+                    result = (m * x2) + b;
+                }
+
+                x2++;
+
+                if ((m * xMax + b) == yMin)
+                {
+                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
+                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
+                }
+
+                if ((m * xMax + b) > yMin)
+                {
+                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
+                    y2 = Math.Abs(yMax) + Math.Abs(result);
+                }
+                else
+                {
+                    x2 = Math.Abs(xMin) + x2;
+                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
+                }
+                //Found x1 and x2
+            }
+
+            else
+            {
+                for (x1 = xMin; result > yMin; x1++)
+                {
+                    result = (m * x1) + b;
+                }
+
+                x1--;
+
+                x1 = Math.Abs(xMin + x1);
+
+                if ((m * xMin + b) == yMax)
+                {
+                    y1 = 0;
+                    x1 = 0;
+                }
+
+                if ((m * xMin + b) < yMax)
+                {
+                    x1 = 0;
+                    y1 = Math.Abs(yMax - result);
+                }
+                else
+                {
+                    y1 = 0;
+                }
+
+                result = (m * xMax) + b;
+                
+                for (x2 = xMax; result < yMax; x2--)
+                {
+                    result = (m * x2) + b;
+                }
+
+                x2++;
+
+                if ((m * xMax + b) == yMin)
+                {
+                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
+                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
+                }
+
+                if ((m * xMax + b) > yMin)
+                {
+                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
+                    y2 = Math.Abs(yMax) + Math.Abs(result);
+                }
+                else
+                {
+                    x2 = Math.Abs(xMin) + x2;
+                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
+                }
+                //Found x1 and x2
+            }
+
+
+            int denominator1 = Math.Abs(xMin) + Math.Abs(xMax);
+            int denominator2 = Math.Abs(yMin) + Math.Abs(yMax);
+
+            g.DrawLine(whitePen, (Math.Abs(x1) * CoordinatePlane.Width / denominator1), (Math.Abs(y1) * CoordinatePlane.Height / denominator2),
+                      (Math.Abs(x2) * CoordinatePlane.Width / denominator1), (Math.Abs(y2) * CoordinatePlane.Height / denominator2));
         }
 
         private void quadGraph(object sender, EventArgs e)
