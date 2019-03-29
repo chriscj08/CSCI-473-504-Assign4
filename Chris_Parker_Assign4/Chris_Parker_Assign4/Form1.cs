@@ -118,7 +118,14 @@ namespace Chris_Parker_Assign4
             int x2 = 0;
             int y1 = 0;
             int y2 = 0;
+
+            //PointF point1 = new PointF(x1, y1);
+            //PointF point2 = new PointF(x2, y2);
+
+            //g.DrawLine(selectedPen, point1, point2);
             
+
+
 
             if (m < 0)
             {
@@ -237,6 +244,7 @@ namespace Chris_Parker_Assign4
 
             g.DrawLine(selectedPen, (Math.Abs(x1) * CoordinatePlane.Width / denominator1), (Math.Abs(y1) * CoordinatePlane.Height / denominator2),
                       (Math.Abs(x2) * CoordinatePlane.Width / denominator1), (Math.Abs(y2) * CoordinatePlane.Height / denominator2));
+                      
         }
 
         private void quadGraph(object sender, EventArgs e)
@@ -251,7 +259,36 @@ namespace Chris_Parker_Assign4
 
         private void circleGraph(object sender, EventArgs e)
         {
+            Graphics g = CoordinatePlane.CreateGraphics();
 
+            if ((string)circleColor.SelectedValue == "White")
+            {
+                selectedPen = new Pen(Color.White);
+            }
+            else if ((string)circleColor.SelectedValue == "Red")
+            {
+                selectedPen = new Pen(Color.Red);
+            }
+            else if ((string)circleColor.SelectedValue == "Green")
+            {
+                selectedPen = new Pen(Color.Green);
+            }
+            else if ((string)circleColor.SelectedValue == "Blue")
+            {
+                selectedPen = new Pen(Color.Blue);
+            }
+
+            //float tempH = Convert.ToInt32(circleH.Text);
+            //float tempk = Convert.ToInt32(circleK.Text);
+            float h = Convert.ToInt32(circleH.Text);
+            float k = Convert.ToInt32(circleK.Text);
+            double tempR = Convert.ToInt32(circleR.Text);
+            float r = (float)Math.Sqrt(tempR);
+
+            if (h < 0) h = h * -1; //for 2 negatives = positive
+            if (k < 0) k = k * -1; //for 2 negatives = positive
+
+            g.DrawEllipse(selectedPen, h-r+300 , k-r+300 , r*2, r*2);            
         }
 
         private void clearGraph(object sender, EventArgs e)
