@@ -14,10 +14,10 @@ namespace Chris_Parker_Assign4
     {
         private static Pen whitePen;        
         private static Pen selectedPen;
-        private static int xMax = 8;
+        private static int xMax = 4;
         private static int xMin = -4;
-        private static int yMax = 5;
-        private static int yMin = -3;
+        private static int yMax = 4;
+        private static int yMin = -4;
 
         public Form1()
         {
@@ -191,7 +191,66 @@ namespace Chris_Parker_Assign4
 
         private void quadGraph(object sender, EventArgs e)
         {
+            Graphics g = CoordinatePlane.CreateGraphics();
+            PointF[] points = new PointF[5];
 
+            float a = float.Parse(quadA.Text);
+            float b = float.Parse(quadB.Text);
+            float c = float.Parse(quadC.Text);
+
+            float x1;
+            float y1;
+            float x2;
+            float y2;
+            float xMid;
+            float yMid;
+            float x3;
+            float y3;
+            float x4;
+            float y4;
+
+            if (a != 0)
+            {
+                a *= -1;
+                b *= -1;
+
+                x1 = ((-1 * b) / (2 *  a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
+                
+                x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
+
+                a *= -1;
+                b *= -1;
+
+                xMid = (x1 + x4) / 2;
+                yMid = a * (xMid * xMid) + b * xMid + c;
+                x2 = (x1 + xMid) / 2;
+                y2 = a * (x2 * x2) + b * x2 + c;
+                x3 = (-1) * x2;
+                y3 = y2 = a * (x3 * x3) + b * x3 + c;
+
+                MessageBox.Show("")
+                x1 = Convert_X_Point(x1);
+
+                x2 = Convert_X_Point(x2);
+                y2 = Convert_Y_Point(y2);
+
+                xMid = Convert_X_Point(xMid);
+                yMid = Convert_Y_Point(yMid);
+
+                x3 = Convert_X_Point(x3);
+                y3 = Convert_Y_Point(y3);
+
+                x4 = Convert_X_Point(x4);
+
+                points[0] = new PointF(x1, (float)yMax);
+                points[1] = new PointF(x2, y2);
+                points[2] = new PointF(xMid, yMid);
+                points[3] = new PointF(x3, y3);
+                points[4] = new PointF(x4, (float)yMax);
+            }
+
+
+            g.DrawCurve(whitePen, points);
         }
 
         private void cubicGraph(object sender, EventArgs e)
