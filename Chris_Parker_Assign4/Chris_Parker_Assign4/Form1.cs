@@ -12,7 +12,8 @@ namespace Chris_Parker_Assign4
 {
     public partial class Form1 : Form
     {
-        private static Pen whitePen;
+        private static Pen whitePen;        
+        private static Pen selectedPen;
         private static int xMax = 10;
         private static int xMin = -10;
         private static int yMax = 10;
@@ -22,8 +23,19 @@ namespace Chris_Parker_Assign4
         {
             InitializeComponent();
 
-            whitePen = new Pen(Color.White);           
-           
+            whitePen = new Pen(Color.White);
+            selectedPen = new Pen(Color.White);
+
+            string[] colors = { "White", "Red", "Green", "Blue" };
+            linearColor.DataSource = colors;
+            linearColor.BindingContext = new BindingContext();
+            quadColor.DataSource = colors;
+            quadColor.BindingContext = new BindingContext();
+            cubicColor.DataSource = colors;
+            cubicColor.BindingContext = new BindingContext();
+            circleColor.DataSource = colors;
+            circleColor.BindingContext = new BindingContext();
+
         }
 
         private void DrawAxes(object sender, PaintEventArgs e)
@@ -41,6 +53,11 @@ namespace Chris_Parker_Assign4
         private void Form1_Load(object sender, EventArgs e)
         {
             this.ActiveControl = Header;
+
+            linearColor.SelectedIndex = -1;
+            quadColor.SelectedIndex = -1;
+            cubicColor.SelectedIndex = -1;
+            circleColor.SelectedIndex = -1;
         }
 
         private void LinEqHint(object sender, EventArgs e)
@@ -75,15 +92,33 @@ namespace Chris_Parker_Assign4
         {
             Graphics g = CoordinatePlane.CreateGraphics();
 
-            
+
+            if ((string)linearColor.SelectedValue == "White")
+            {
+                selectedPen = new Pen(Color.White);
+            }
+            else if ((string)linearColor.SelectedValue == "Red")
+            {
+                selectedPen = new Pen(Color.Red);
+            }
+            else if ((string)linearColor.SelectedValue == "Green")
+            {
+                selectedPen = new Pen(Color.Green);
+            }
+            else if ((string)linearColor.SelectedValue == "Blue")
+            {
+                selectedPen = new Pen(Color.Blue);
+            }
+
             int m = Convert.ToInt32(linearM.Text);
             int b = Convert.ToInt32(linearB.Text);
             //Finding x1 and x2
             int result = (m * xMin) + b;
             int x1 = 0;
+            int x2 = 0;
             int y1 = 0;
             int y2 = 0;
-            int x2 = 0;
+            
 
             if (m < 0)
             {
@@ -200,7 +235,7 @@ namespace Chris_Parker_Assign4
             int denominator1 = Math.Abs(xMin) + Math.Abs(xMax);
             int denominator2 = Math.Abs(yMin) + Math.Abs(yMax);
 
-            g.DrawLine(whitePen, (Math.Abs(x1) * CoordinatePlane.Width / denominator1), (Math.Abs(y1) * CoordinatePlane.Height / denominator2),
+            g.DrawLine(selectedPen, (Math.Abs(x1) * CoordinatePlane.Width / denominator1), (Math.Abs(y1) * CoordinatePlane.Height / denominator2),
                       (Math.Abs(x2) * CoordinatePlane.Width / denominator1), (Math.Abs(y2) * CoordinatePlane.Height / denominator2));
         }
 
@@ -221,7 +256,15 @@ namespace Chris_Parker_Assign4
 
         private void clearGraph(object sender, EventArgs e)
         {
+            Graphics g = CoordinatePlane.CreateGraphics();
 
+            SolidBrush paintItBlack = new SolidBrush(Color.Black);
+            g.FillRectangle(paintItBlack, 0, 0, CoordinatePlane.Width, CoordinatePlane.Height);
+
+            //Horizontal Axis
+            g.DrawLine(whitePen, 0, (Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))), CoordinatePlane.Width, (Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))));
+            //Vertical Axis
+            g.DrawLine(whitePen, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), 0, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), CoordinatePlane.Height);
         }
 
         private void linearMTxtChange(object sender, EventArgs e)
@@ -233,6 +276,278 @@ namespace Chris_Parker_Assign4
         }
 
         private void linearMKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void linearBTxtChange(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(linearB.Text, "  ^ [0-9]"))
+            {
+                linearB.Text = "";
+            }
+        }
+
+        private void linearBKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void quadATxtChange(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(quadA.Text, "  ^ [0-9]"))
+            {
+                quadA.Text = "";
+            }
+        }
+
+        private void quadAKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void quadBTxtChange(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(quadB.Text, "  ^ [0-9]"))
+            {
+                quadB.Text = "";
+            }
+        }
+
+        private void quadBKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void quadCTxtChange(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(quadC.Text, "  ^ [0-9]"))
+            {
+                quadC.Text = "";
+            }
+        }
+
+        private void quadCKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cubicA_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(cubicA.Text, "  ^ [0-9]"))
+            {
+                cubicA.Text = "";
+            }
+        }
+
+        private void cubicA_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cubicB_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(cubicB.Text, "  ^ [0-9]"))
+            {
+                cubicB.Text = "";
+            }
+        }
+
+        private void cubicB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cubicC_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(cubicC.Text, "  ^ [0-9]"))
+            {
+                cubicC.Text = "";
+            }
+        }
+
+        private void cubicC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cubicD_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(cubicD.Text, "  ^ [0-9]"))
+            {
+                cubicD.Text = "";
+            }
+        }
+
+        private void cubicD_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void circleH_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(circleH.Text, "  ^ [0-9]"))
+            {
+                circleH.Text = "";
+            }
+        }
+
+        private void circleH_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void circleK_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(circleK.Text, "  ^ [0-9]"))
+            {
+                circleK.Text = "";
+            }
+        }
+
+        private void circleK_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void circleR_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(circleR.Text, "  ^ [0-9]"))
+            {
+                circleR.Text = "";
+            }
+        }
+
+        private void circleR_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void rangeXMin_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(rangeXMin.Text, "  ^ [0-9]"))
+            {
+                rangeXMin.Text = "";
+            }
+        }
+
+        private void rangeXMin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void rangeXMax_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(rangeXMax.Text, "  ^ [0-9]"))
+            {
+                rangeXMax.Text = "";
+            }
+        }
+
+        private void rangeXMax_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void rangeYMin_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(rangeYMin.Text, "  ^ [0-9]"))
+            {
+                rangeYMin.Text = "";
+            }
+        }
+
+        private void rangeYMin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void rangeYMax_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(rangeYMax.Text, "  ^ [0-9]"))
+            {
+                rangeYMax.Text = "";
+            }
+        }
+
+        private void rangeYMax_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void intervalX_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(intervalX.Text, "  ^ [0-9]"))
+            {
+                intervalX.Text = "";
+            }
+        }
+
+        private void intervalX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void intervalY_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(intervalY.Text, "  ^ [0-9]"))
+            {
+                intervalY.Text = "";
+            }
+        }
+
+        private void intervalY_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
             {
