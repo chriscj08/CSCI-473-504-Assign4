@@ -277,19 +277,16 @@ namespace Chris_Parker_Assign4
             else if ((string)circleColor.SelectedValue == "Blue")
             {
                 selectedPen = new Pen(Color.Blue);
-            }
+            }            
 
-            //float tempH = Convert.ToInt32(circleH.Text);
-            //float tempk = Convert.ToInt32(circleK.Text);
-            float h = Convert.ToInt32(circleH.Text);
-            float k = Convert.ToInt32(circleK.Text);
+            float scale = 600 / 20;
+            float h = Convert.ToInt32(circleH.Text)*scale;
+            float k = Convert.ToInt32(circleK.Text)*scale;
             double tempR = Convert.ToInt32(circleR.Text);
-            float r = (float)Math.Sqrt(tempR);
+            float r = (float)Math.Sqrt(tempR)*scale; 
 
-            if (h < 0) h = h * -1; //for 2 negatives = positive
-            if (k < 0) k = k * -1; //for 2 negatives = positive
-
-            g.DrawEllipse(selectedPen, h-r+300 , k-r+300 , r*2, r*2);            
+            g.DrawEllipse(selectedPen, h+(10*scale)-r, (scale*10)-k-r, r*2,r*2);
+            
         }
 
         private void clearGraph(object sender, EventArgs e)
@@ -497,99 +494,47 @@ namespace Chris_Parker_Assign4
             }
         }
 
-        private void rangeXMin_TextChanged(object sender, EventArgs e)
+        private void xMinChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(rangeXMin.Text, "  ^ [0-9]"))
+            int min = Convert.ToInt32(xMinRange.Value); //gets int from num up down
+            int max = Convert.ToInt32(xMaxRange.Value); //gets int from num up down
+
+            if (min > max)
             {
-                rangeXMin.Text = "";
+                xMaxRange.Value = xMinRange.Value; //if min>max set max = min
             }
         }
 
-        private void rangeXMin_KeyPress(object sender, KeyPressEventArgs e)
+        private void xMaxChanged(object sender, EventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+            int min = Convert.ToInt32(xMinRange.Value); //gets int from num up down
+            int max = Convert.ToInt32(xMaxRange.Value); //gets int from num up down
+
+            if (max < min)
             {
-                e.Handled = true;
+                xMinRange.Value = xMaxRange.Value; //if min>max set min = max
             }
         }
 
-        private void rangeXMax_TextChanged(object sender, EventArgs e)
+        private void yMinChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(rangeXMax.Text, "  ^ [0-9]"))
+            int min = Convert.ToInt32(yMinRange.Value); //gets int from num up down
+            int max = Convert.ToInt32(yMaxRange.Value); //gets int from num up down
+
+            if (min > max)
             {
-                rangeXMax.Text = "";
+                yMaxRange.Value = yMinRange.Value; //if min>max set max = min
             }
         }
 
-        private void rangeXMax_KeyPress(object sender, KeyPressEventArgs e)
+        private void yMaxChanged(object sender, EventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
-            {
-                e.Handled = true;
-            }
-        }
+            int min = Convert.ToInt32(yMinRange.Value); //gets int from num up down
+            int max = Convert.ToInt32(yMaxRange.Value); //gets int from num up down
 
-        private void rangeYMin_TextChanged(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(rangeYMin.Text, "  ^ [0-9]"))
+            if (min > max)
             {
-                rangeYMin.Text = "";
-            }
-        }
-
-        private void rangeYMin_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void rangeYMax_TextChanged(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(rangeYMax.Text, "  ^ [0-9]"))
-            {
-                rangeYMax.Text = "";
-            }
-        }
-
-        private void rangeYMax_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void intervalX_TextChanged(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(intervalX.Text, "  ^ [0-9]"))
-            {
-                intervalX.Text = "";
-            }
-        }
-
-        private void intervalX_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void intervalY_TextChanged(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(intervalY.Text, "  ^ [0-9]"))
-            {
-                intervalY.Text = "";
-            }
-        }
-
-        private void intervalY_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
-            {
-                e.Handled = true;
+                yMinRange.Value = yMaxRange.Value; //if min>max set max = min
             }
         }
 
