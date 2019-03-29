@@ -14,10 +14,10 @@ namespace Chris_Parker_Assign4
     {
         private static Pen whitePen;        
         private static Pen selectedPen;
-        private static int xMax = 10;
-        private static int xMin = -10;
-        private static int yMax = 10;
-        private static int yMin = -10;
+        private static int xMax = 8;
+        private static int xMin = -4;
+        private static int yMax = 5;
+        private static int yMin = -3;
 
         public Form1()
         {
@@ -43,11 +43,36 @@ namespace Chris_Parker_Assign4
             Graphics g = e.Graphics;
 
             //Horizontal Axis
-            g.DrawLine(whitePen, 0, ( Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))), CoordinatePlane.Width, (Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))));
+            g.DrawLine(whitePen, 0, (float) yMax * (600 / ((float)yMax - (float)yMin)), CoordinatePlane.Width, (float)yMax * (600 / ((float)yMax - (float)yMin)));
             //Vertical Axis
-            g.DrawLine(whitePen, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), 0, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), CoordinatePlane.Height);
+            g.DrawLine(whitePen, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), 0, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), CoordinatePlane.Height);
 
-            
+
+
+        }
+
+        private float Convert_X_Point (float x)
+        {
+            float min = (float) xMin;
+            float max = (float) xMax;
+
+            if (xMin < 0)
+            {
+                return ((x + Math.Abs(min))*(600 / (max - min)));
+            }
+            else
+            {
+                return (x * (600 / (max - min)));
+            }
+
+        }
+
+        private float Convert_Y_Point (float y)
+        {
+            float min = (float)yMin;
+            float max = (float)yMax;
+
+            return (Math.Abs(y - max) * (600 / (max - min)));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -110,140 +135,57 @@ namespace Chris_Parker_Assign4
                 selectedPen = new Pen(Color.Blue);
             }
 
-            int m = Convert.ToInt32(linearM.Text);
-            int b = Convert.ToInt32(linearB.Text);
-            //Finding x1 and x2
-            int result = (m * xMin) + b;
-            int x1 = 0;
-            int x2 = 0;
-            int y1 = 0;
-            int y2 = 0;
-
-            //PointF point1 = new PointF(x1, y1);
-            //PointF point2 = new PointF(x2, y2);
-
-            //g.DrawLine(selectedPen, point1, point2);
             
+            float m = float.Parse(linearM.Text);
+            float b = float.Parse(linearB.Text);
+            float y = (float)yMax;
+            float x1;
+            float x2;
+            float y1;
+            float y2;
 
-
-
-            if (m < 0)
+            if (m != 0)
             {
-                for (x1 = xMin; result > yMax; x1++)
+                y1 = y;
+                x1 = (y - b) / m;
+
+                if (x1 < (float)xMin)
                 {
-                    result = (m * x1) + b;
+                    x1 = (float)xMin;
+                    y1 = (m * x1) + b;
                 }
 
-                x1--;
+                x1 = Convert_X_Point(x1);
+                y1 = Convert_Y_Point(y1);
 
-                x1 = Math.Abs(xMin - x1);
+                //Find the second point
+                y = (float)yMin;
 
-                if ((m * xMin + b) == yMax)
+                y2 = y;
+                x2 = (y - b) / m;
+
+                if (x2 > (float)xMax)
                 {
-                    y1 = 0;
-                    x1 = 0;
+                    x2 = (float)xMax;
+                    y2 = (m * x2) + b;
                 }
 
-                if ((m * xMin + b) < yMax)
-                {
-                    x1 = 0;
-                    y1 = Math.Abs(yMax - result);
-                }
-                else
-                {
-                    y1 = 0;
-                }
-
-                result = (m * xMax) + b;
-                
-
-                for (x2 = xMax; result < yMin; x2--)
-                {
-                    result = (m * x2) + b;
-                }
-
-                x2++;
-
-                if ((m * xMax + b) == yMin)
-                {
-                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
-                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
-                }
-
-                if ((m * xMax + b) > yMin)
-                {
-                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
-                    y2 = Math.Abs(yMax) + Math.Abs(result);
-                }
-                else
-                {
-                    x2 = Math.Abs(xMin) + x2;
-                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
-                }
-                //Found x1 and x2
+                x2 = Convert_X_Point(x2);
+                y2 = Convert_Y_Point(y2);
             }
-
             else
             {
-                for (x1 = xMin; result > yMin; x1++)
-                {
-                    result = (m * x1) + b;
-                }
+                x1 = 0;
+                y1 = b;
+                x2 = CoordinatePlane.Width;
+                y2 = b;
 
-                x1--;
-
-                x1 = Math.Abs(xMin + x1);
-
-                if ((m * xMin + b) == yMax)
-                {
-                    y1 = 0;
-                    x1 = 0;
-                }
-
-                if ((m * xMin + b) < yMax)
-                {
-                    x1 = 0;
-                    y1 = Math.Abs(yMax - result);
-                }
-                else
-                {
-                    y1 = 0;
-                }
-
-                result = (m * xMax) + b;
-                
-                for (x2 = xMax; result < yMax; x2--)
-                {
-                    result = (m * x2) + b;
-                }
-
-                x2++;
-
-                if ((m * xMax + b) == yMin)
-                {
-                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
-                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
-                }
-
-                if ((m * xMax + b) > yMin)
-                {
-                    x2 = Math.Abs(xMin) + Math.Abs(xMax);
-                    y2 = Math.Abs(yMax) + Math.Abs(result);
-                }
-                else
-                {
-                    x2 = Math.Abs(xMin) + x2;
-                    y2 = Math.Abs(yMin) + Math.Abs(yMax);
-                }
-                //Found x1 and x2
+                y1 = Convert_Y_Point(y1);
+                y2 = Convert_Y_Point(y2);
             }
+            
 
-
-            int denominator1 = Math.Abs(xMin) + Math.Abs(xMax);
-            int denominator2 = Math.Abs(yMin) + Math.Abs(yMax);
-
-            g.DrawLine(selectedPen, (Math.Abs(x1) * CoordinatePlane.Width / denominator1), (Math.Abs(y1) * CoordinatePlane.Height / denominator2),
-                      (Math.Abs(x2) * CoordinatePlane.Width / denominator1), (Math.Abs(y2) * CoordinatePlane.Height / denominator2));
+            g.DrawLine(whitePen, x1, y1, x2, y2);
                       
         }
 
@@ -590,6 +532,15 @@ namespace Chris_Parker_Assign4
             {
                 e.Handled = true;
             }
+        }
+
+        private void Coordinate_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Point coordinates = me.Location;
+
+            MessageBox.Show("X: " + coordinates.X + " Y: " + coordinates.Y);
+            
         }
     }
 }

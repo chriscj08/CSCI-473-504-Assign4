@@ -112,6 +112,7 @@
             this.CoordinatePlane.Size = new System.Drawing.Size(600, 600);
             this.CoordinatePlane.TabIndex = 0;
             this.CoordinatePlane.TabStop = false;
+            this.CoordinatePlane.Click += new System.EventHandler(this.Coordinate_Click);
             this.CoordinatePlane.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawAxes);
             // 
             // linearM
