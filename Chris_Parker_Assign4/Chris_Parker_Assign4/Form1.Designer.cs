@@ -83,7 +83,6 @@
             this.circleColor = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
@@ -91,17 +90,23 @@
             this.label34 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.rangeXMin = new System.Windows.Forms.TextBox();
-            this.rangeYMax = new System.Windows.Forms.TextBox();
-            this.rangeYMin = new System.Windows.Forms.TextBox();
-            this.rangeXMax = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
-            this.intervalX = new System.Windows.Forms.TextBox();
-            this.intervalY = new System.Windows.Forms.TextBox();
+            this.xMinRange = new System.Windows.Forms.NumericUpDown();
+            this.yInterval = new System.Windows.Forms.NumericUpDown();
+            this.xInterval = new System.Windows.Forms.NumericUpDown();
+            this.yMaxRange = new System.Windows.Forms.NumericUpDown();
+            this.yMinRange = new System.Windows.Forms.NumericUpDown();
+            this.xMaxRange = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.CoordinatePlane)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xMinRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yMaxRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yMinRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xMaxRange)).BeginInit();
             this.SuspendLayout();
             // 
             // CoordinatePlane
@@ -199,7 +204,7 @@
             // 
             // circleR
             // 
-            this.circleR.Location = new System.Drawing.Point(229, 377);
+            this.circleR.Location = new System.Drawing.Point(213, 378);
             this.circleR.Name = "circleR";
             this.circleR.Size = new System.Drawing.Size(25, 20);
             this.circleR.TabIndex = 15;
@@ -208,7 +213,7 @@
             // 
             // circleK
             // 
-            this.circleK.Location = new System.Drawing.Point(168, 378);
+            this.circleK.Location = new System.Drawing.Point(147, 379);
             this.circleK.Name = "circleK";
             this.circleK.Size = new System.Drawing.Size(25, 20);
             this.circleK.TabIndex = 14;
@@ -217,7 +222,7 @@
             // 
             // circleH
             // 
-            this.circleH.Location = new System.Drawing.Point(86, 377);
+            this.circleH.Location = new System.Drawing.Point(65, 378);
             this.circleH.Name = "circleH";
             this.circleH.Size = new System.Drawing.Size(25, 20);
             this.circleH.TabIndex = 13;
@@ -308,7 +313,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(238, 361);
+            this.label11.Location = new System.Drawing.Point(217, 362);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(10, 13);
             this.label11.TabIndex = 27;
@@ -317,7 +322,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(171, 361);
+            this.label12.Location = new System.Drawing.Point(150, 362);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(13, 13);
             this.label12.TabIndex = 26;
@@ -326,7 +331,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(96, 361);
+            this.label13.Location = new System.Drawing.Point(75, 362);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(13, 13);
             this.label13.TabIndex = 25;
@@ -477,9 +482,9 @@
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(41, 384);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(43, 13);
+            this.label20.Size = new System.Drawing.Size(24, 13);
             this.label20.TabIndex = 43;
-            this.label20.Text = "Y = (( x-";
+            this.label20.Text = "(( x-";
             // 
             // label21
             // 
@@ -591,7 +596,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(116, 384);
+            this.label28.Location = new System.Drawing.Point(95, 385);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(45, 13);
             this.label28.TabIndex = 56;
@@ -600,20 +605,11 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(197, 384);
+            this.label29.Location = new System.Drawing.Point(176, 385);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(31, 13);
+            this.label29.Size = new System.Drawing.Size(34, 13);
             this.label29.TabIndex = 57;
-            this.label29.Text = ")^2 =";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(257, 384);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(19, 13);
-            this.label30.TabIndex = 58;
-            this.label30.Text = "^2";
+            this.label29.Text = ")^2) =";
             // 
             // button8
             // 
@@ -681,46 +677,6 @@
             this.label1.TabIndex = 65;
             this.label1.Text = "Range";
             // 
-            // rangeXMin
-            // 
-            this.rangeXMin.Location = new System.Drawing.Point(9, 483);
-            this.rangeXMin.Margin = new System.Windows.Forms.Padding(2);
-            this.rangeXMin.Name = "rangeXMin";
-            this.rangeXMin.Size = new System.Drawing.Size(24, 20);
-            this.rangeXMin.TabIndex = 66;
-            this.rangeXMin.TextChanged += new System.EventHandler(this.rangeXMin_TextChanged);
-            this.rangeXMin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rangeXMin_KeyPress);
-            // 
-            // rangeYMax
-            // 
-            this.rangeYMax.Location = new System.Drawing.Point(119, 483);
-            this.rangeYMax.Margin = new System.Windows.Forms.Padding(2);
-            this.rangeYMax.Name = "rangeYMax";
-            this.rangeYMax.Size = new System.Drawing.Size(24, 20);
-            this.rangeYMax.TabIndex = 67;
-            this.rangeYMax.TextChanged += new System.EventHandler(this.rangeYMax_TextChanged);
-            this.rangeYMax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rangeYMax_KeyPress);
-            // 
-            // rangeYMin
-            // 
-            this.rangeYMin.Location = new System.Drawing.Point(80, 483);
-            this.rangeYMin.Margin = new System.Windows.Forms.Padding(2);
-            this.rangeYMin.Name = "rangeYMin";
-            this.rangeYMin.Size = new System.Drawing.Size(24, 20);
-            this.rangeYMin.TabIndex = 68;
-            this.rangeYMin.TextChanged += new System.EventHandler(this.rangeYMin_TextChanged);
-            this.rangeYMin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rangeYMin_KeyPress);
-            // 
-            // rangeXMax
-            // 
-            this.rangeXMax.Location = new System.Drawing.Point(45, 483);
-            this.rangeXMax.Margin = new System.Windows.Forms.Padding(2);
-            this.rangeXMax.Name = "rangeXMax";
-            this.rangeXMax.Size = new System.Drawing.Size(24, 20);
-            this.rangeXMax.TabIndex = 69;
-            this.rangeXMax.TextChanged += new System.EventHandler(this.rangeXMax_TextChanged);
-            this.rangeXMax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rangeXMax_KeyPress);
-            // 
             // label35
             // 
             this.label35.AutoSize = true;
@@ -759,23 +715,71 @@
             this.label38.TabIndex = 73;
             this.label38.Text = "x          y";
             // 
-            // intervalX
+            // xMinRange
             // 
-            this.intervalX.Location = new System.Drawing.Point(181, 482);
-            this.intervalX.Name = "intervalX";
-            this.intervalX.Size = new System.Drawing.Size(21, 20);
-            this.intervalX.TabIndex = 74;
-            this.intervalX.TextChanged += new System.EventHandler(this.intervalX_TextChanged);
-            this.intervalX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.intervalX_KeyPress);
+            this.xMinRange.Location = new System.Drawing.Point(10, 482);
+            this.xMinRange.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.xMinRange.Name = "xMinRange";
+            this.xMinRange.Size = new System.Drawing.Size(32, 20);
+            this.xMinRange.TabIndex = 74;
+            this.xMinRange.ValueChanged += new System.EventHandler(this.xMinChanged);
             // 
-            // intervalY
+            // yInterval
             // 
-            this.intervalY.Location = new System.Drawing.Point(215, 482);
-            this.intervalY.Name = "intervalY";
-            this.intervalY.Size = new System.Drawing.Size(21, 20);
-            this.intervalY.TabIndex = 75;
-            this.intervalY.TextChanged += new System.EventHandler(this.intervalY_TextChanged);
-            this.intervalY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.intervalY_KeyPress);
+            this.yInterval.Location = new System.Drawing.Point(215, 482);
+            this.yInterval.Name = "yInterval";
+            this.yInterval.Size = new System.Drawing.Size(32, 20);
+            this.yInterval.TabIndex = 76;
+            // 
+            // xInterval
+            // 
+            this.xInterval.Location = new System.Drawing.Point(180, 482);
+            this.xInterval.Name = "xInterval";
+            this.xInterval.Size = new System.Drawing.Size(32, 20);
+            this.xInterval.TabIndex = 77;
+            // 
+            // yMaxRange
+            // 
+            this.yMaxRange.Location = new System.Drawing.Point(108, 482);
+            this.yMaxRange.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.yMaxRange.Name = "yMaxRange";
+            this.yMaxRange.Size = new System.Drawing.Size(32, 20);
+            this.yMaxRange.TabIndex = 78;
+            this.yMaxRange.ValueChanged += new System.EventHandler(this.yMaxChanged);
+            // 
+            // yMinRange
+            // 
+            this.yMinRange.Location = new System.Drawing.Point(78, 482);
+            this.yMinRange.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.yMinRange.Name = "yMinRange";
+            this.yMinRange.Size = new System.Drawing.Size(32, 20);
+            this.yMinRange.TabIndex = 79;
+            this.yMinRange.ValueChanged += new System.EventHandler(this.yMinChanged);
+            // 
+            // xMaxRange
+            // 
+            this.xMaxRange.Location = new System.Drawing.Point(42, 482);
+            this.xMaxRange.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.xMaxRange.Name = "xMaxRange";
+            this.xMaxRange.Size = new System.Drawing.Size(32, 20);
+            this.xMaxRange.TabIndex = 80;
+            this.xMaxRange.ValueChanged += new System.EventHandler(this.xMaxChanged);
             // 
             // Form1
             // 
@@ -783,16 +787,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(978, 620);
-            this.Controls.Add(this.intervalY);
-            this.Controls.Add(this.intervalX);
+            this.Controls.Add(this.xMaxRange);
+            this.Controls.Add(this.yMinRange);
+            this.Controls.Add(this.yMaxRange);
+            this.Controls.Add(this.xInterval);
+            this.Controls.Add(this.yInterval);
+            this.Controls.Add(this.xMinRange);
             this.Controls.Add(this.label38);
             this.Controls.Add(this.label37);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.label35);
-            this.Controls.Add(this.rangeXMax);
-            this.Controls.Add(this.rangeYMin);
-            this.Controls.Add(this.rangeYMax);
-            this.Controls.Add(this.rangeXMin);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.label34);
@@ -800,7 +804,6 @@
             this.Controls.Add(this.label32);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.label30);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.circleColor);
@@ -860,6 +863,12 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CoordinatePlane)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xMinRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yMaxRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yMinRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xMaxRange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -922,7 +931,6 @@
         private System.Windows.Forms.ComboBox circleColor;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
@@ -930,16 +938,16 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox rangeXMin;
-        private System.Windows.Forms.TextBox rangeYMax;
-        private System.Windows.Forms.TextBox rangeYMin;
-        private System.Windows.Forms.TextBox rangeXMax;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.TextBox intervalX;
-        private System.Windows.Forms.TextBox intervalY;
+        private System.Windows.Forms.NumericUpDown xMinRange;
+        private System.Windows.Forms.NumericUpDown yInterval;
+        private System.Windows.Forms.NumericUpDown xInterval;
+        private System.Windows.Forms.NumericUpDown yMaxRange;
+        private System.Windows.Forms.NumericUpDown yMinRange;
+        private System.Windows.Forms.NumericUpDown xMaxRange;
     }
 }
 
