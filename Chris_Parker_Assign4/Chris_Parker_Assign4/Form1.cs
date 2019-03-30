@@ -14,8 +14,8 @@ namespace Chris_Parker_Assign4
     {
         private static Pen whitePen;
         private static Pen selectedPen;
-        private static int xMax = 10;
-        private static int xMin = -10;
+        private static int xMax = 5;
+        private static int xMin = -5;
         private static int yMax = 10;
         private static int yMin = -10;
 
@@ -213,7 +213,7 @@ namespace Chris_Parker_Assign4
             }
 
             List<PointF> pointList = new List<PointF>();
-            float scale = 600 / 20;
+            float scale = 600 / 10;
             float a = Convert.ToSingle(quadA.Text) * scale;
             float b = Convert.ToSingle(quadB.Text) * scale;
             float c = Convert.ToSingle(quadC.Text) * scale;
@@ -225,7 +225,7 @@ namespace Chris_Parker_Assign4
             {
                 //quad equation a,b,c,d are pulled from user entries
                 float y = (a * (x * x) + (b * x + c));
-                pointList.Add(new PointF((scale * 10) + x * scale, (scale * 10) - y));
+                pointList.Add(new PointF((scale * 5) + x * scale, (scale * 5) - y));
             }
             PointF[] pointArray = pointList.ToArray();
 

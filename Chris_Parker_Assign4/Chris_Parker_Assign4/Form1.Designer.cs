@@ -155,6 +155,7 @@
             this.quadA.Name = "quadA";
             this.quadA.Size = new System.Drawing.Size(25, 20);
             this.quadA.TabIndex = 6;
+            this.quadA.TextChanged += new System.EventHandler(this.quadATxtChange);
             this.quadA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.quadAKeyPress);
             // 
             // quadC
@@ -659,11 +660,11 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(282, 466);
+            this.button9.Location = new System.Drawing.Point(269, 466);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(61, 23);
+            this.button9.Size = new System.Drawing.Size(74, 23);
             this.button9.TabIndex = 64;
-            this.button9.Text = "Clear All";
+            this.button9.Text = "Clear Graph";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.clearGraph);
             // 
@@ -693,9 +694,9 @@
             this.label36.Location = new System.Drawing.Point(77, 466);
             this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(67, 13);
+            this.label36.Size = new System.Drawing.Size(76, 13);
             this.label36.TabIndex = 71;
-            this.label36.Text = "y-min   y-max";
+            this.label36.Text = "y-min      y-max";
             // 
             // label37
             // 
@@ -717,14 +718,14 @@
             // 
             // xMinRange
             // 
-            this.xMinRange.Location = new System.Drawing.Point(10, 482);
+            this.xMinRange.Location = new System.Drawing.Point(3, 482);
             this.xMinRange.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.xMinRange.Name = "xMinRange";
-            this.xMinRange.Size = new System.Drawing.Size(32, 20);
+            this.xMinRange.Size = new System.Drawing.Size(39, 20);
             this.xMinRange.TabIndex = 74;
             this.xMinRange.ValueChanged += new System.EventHandler(this.xMinChanged);
             // 
@@ -744,40 +745,40 @@
             // 
             // yMaxRange
             // 
-            this.yMaxRange.Location = new System.Drawing.Point(108, 482);
+            this.yMaxRange.Location = new System.Drawing.Point(116, 482);
             this.yMaxRange.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.yMaxRange.Name = "yMaxRange";
-            this.yMaxRange.Size = new System.Drawing.Size(32, 20);
+            this.yMaxRange.Size = new System.Drawing.Size(41, 20);
             this.yMaxRange.TabIndex = 78;
             this.yMaxRange.ValueChanged += new System.EventHandler(this.yMaxChanged);
             // 
             // yMinRange
             // 
-            this.yMinRange.Location = new System.Drawing.Point(78, 482);
+            this.yMinRange.Location = new System.Drawing.Point(80, 482);
             this.yMinRange.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.yMinRange.Name = "yMinRange";
-            this.yMinRange.Size = new System.Drawing.Size(32, 20);
+            this.yMinRange.Size = new System.Drawing.Size(38, 20);
             this.yMinRange.TabIndex = 79;
             this.yMinRange.ValueChanged += new System.EventHandler(this.yMinChanged);
             // 
             // xMaxRange
             // 
-            this.xMaxRange.Location = new System.Drawing.Point(42, 482);
+            this.xMaxRange.Location = new System.Drawing.Point(44, 482);
             this.xMaxRange.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.xMaxRange.Name = "xMaxRange";
-            this.xMaxRange.Size = new System.Drawing.Size(32, 20);
+            this.xMaxRange.Size = new System.Drawing.Size(36, 20);
             this.xMaxRange.TabIndex = 80;
             this.xMaxRange.ValueChanged += new System.EventHandler(this.xMaxChanged);
             // 
