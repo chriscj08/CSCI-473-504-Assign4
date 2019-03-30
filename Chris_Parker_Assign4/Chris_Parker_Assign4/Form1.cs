@@ -193,6 +193,8 @@ namespace Chris_Parker_Assign4
         {
             Graphics g = CoordinatePlane.CreateGraphics();
             PointF[] points = new PointF[5];
+            bool check = false;
+            bool otherCheck = false;
 
             float a = float.Parse(quadA.Text);
             float b = float.Parse(quadB.Text);
@@ -211,24 +213,51 @@ namespace Chris_Parker_Assign4
 
             if (a != 0)
             {
-                a *= -1;
-                b *= -1;
+                if (a > 0)
+                {
+                    a *= -1;
+                    check = true;
+                }
+               
+                if (b > 0)
+                {
+                    b *= -1;
+                    otherCheck = true;
+                }
 
-                x1 = ((-1 * b) / (2 *  a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
+                if(check)
+                {
+                    x1 = ((-1 * b) / (2 * a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
+
+                    x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
+                }
+                else
+                {
+                    x1 = ((-1 * b) / (2 * a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)Math.Abs(yMin) - c)) / (2 * a));
+
+                    x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)Math.Abs(yMin) - c)) / (2 * a));
+                }
                 
-                x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
 
-                a *= -1;
-                b *= -1;
-
+                if (check)
+                {
+                    a *= -1;
+                }
+                
+                if(otherCheck)
+                {
+                    b *= -1;
+                }
+                
+                MessageBox.Show(b.ToString());
                 xMid = (x1 + x4) / 2;
                 yMid = a * (xMid * xMid) + b * xMid + c;
                 x2 = (x1 + xMid) / 2;
                 y2 = a * (x2 * x2) + b * x2 + c;
-                x3 = (-1) * x2;
+                x3 = (xMid + x4) / 2;
                 y3 = y2 = a * (x3 * x3) + b * x3 + c;
 
-                MessageBox.Show("")
+                MessageBox.Show("x1: " + x1.ToString() + " x2: " + x2.ToString() + " xMid: " + xMid.ToString() + " x3: " + x3.ToString() + " x4: " + x4.ToString());
                 x1 = Convert_X_Point(x1);
 
                 x2 = Convert_X_Point(x2);
@@ -242,14 +271,25 @@ namespace Chris_Parker_Assign4
 
                 x4 = Convert_X_Point(x4);
 
-                points[0] = new PointF(x1, (float)yMax);
-                points[1] = new PointF(x2, y2);
-                points[2] = new PointF(xMid, yMid);
-                points[3] = new PointF(x3, y3);
-                points[4] = new PointF(x4, (float)yMax);
+                if (a > 0)
+                {
+                    points[0] = new PointF(x1, (float) 0);
+                    points[1] = new PointF(x2, y2);
+                    points[2] = new PointF(xMid, yMid);
+                    points[3] = new PointF(x3, y3);
+                    points[4] = new PointF(x4, (float)0);
+                }
+                else
+                {
+                    points[0] = new PointF(x1, (float) CoordinatePlane.Height);
+                    points[1] = new PointF(x2, y2);
+                    points[2] = new PointF(xMid, yMid);
+                    points[3] = new PointF(x3, y3);
+                    points[4] = new PointF(x4, (float) CoordinatePlane.Height);
+                }
             }
 
-
+            
             g.DrawCurve(whitePen, points);
         }
 
