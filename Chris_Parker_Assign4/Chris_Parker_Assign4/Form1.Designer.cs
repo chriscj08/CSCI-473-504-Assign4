@@ -719,7 +719,7 @@
             // 
             // xMinRange
             // 
-            this.xMinRange.Location = new System.Drawing.Point(3, 482);
+            this.xMinRange.Location = new System.Drawing.Point(10, 481);
             this.xMinRange.Minimum = new decimal(new int[] {
             100,
             0,
