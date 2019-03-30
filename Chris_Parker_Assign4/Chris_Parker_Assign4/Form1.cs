@@ -14,10 +14,6 @@ namespace Chris_Parker_Assign4
     {
         private static Pen whitePen;
         private static Pen selectedPen;
-        private static int xMax = 10;
-        private static int xMin = -10;
-        private static int yMax = 10;
-        private static int yMin = -10;
 
         public Form1()
         {
@@ -26,6 +22,7 @@ namespace Chris_Parker_Assign4
             whitePen = new Pen(Color.White);
             selectedPen = new Pen(Color.White);
 
+            MakeCheckMarks();
             string[] colors = { "White", "Red", "Green", "Blue" };
             linearColor.DataSource = colors;
             linearColor.BindingContext = new BindingContext();
@@ -38,9 +35,52 @@ namespace Chris_Parker_Assign4
 
         }
 
+        private void MakeCheckMarks ()
+        {
+            Graphics g = CoordinatePlane.CreateGraphics();
+
+            int xMin = Convert.ToInt16(xMinRange.Value);
+            int xMax = Convert.ToInt16(xMaxRange.Value);
+            int yMin = Convert.ToInt16(yMinRange.Value);
+            int yMax = Convert.ToInt16(yMaxRange.Value);
+
+            int xSpace = Convert.ToInt16(xInterval.Value);
+            int ySpace = Convert.ToInt16(yInterval.Value);
+
+            //Draw horizontal tick marks
+            for (int i = xMin; i < xMax; i+= xSpace)
+            {
+                g.DrawLine(whitePen,(float)i * (600 / ((float)yMax - (float)yMin)), 150 + (float)yMax * (600 / ((float)yMax - (float)yMin)), (float)i * (600 / ((float)yMax - (float)yMin)), -150 +(float)yMax * (600 / ((float)yMax - (float)yMin)));
+                
+            }
+
+
+        }
+
         private void DrawAxes(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            int xMin = Convert.ToInt16(xMinRange.Value);
+            int xMax = Convert.ToInt16(xMaxRange.Value);
+            int yMin = Convert.ToInt16(yMinRange.Value);
+            int yMax = Convert.ToInt16(yMaxRange.Value);
+
+            int xSpace = Convert.ToInt16(xInterval.Value);
+            int ySpace = Convert.ToInt16(yInterval.Value);
+
+            //Draw horizontal tick marks
+            for (int i = 0; i < xMax - xMin; i += xSpace)
+            {
+                g.DrawLine(whitePen, (float)Math.Abs(i) * (600 / ((float)xMax - (float)xMin)), 10 + (float)yMax * (600 / ((float)yMax - (float)yMin)), (float)Math.Abs(i) * (600 / ((float)xMax - (float)xMin)), -10 + (float)yMax * (600 / ((float)yMax - (float)yMin)));
+
+            }
+
+            //Draw vertical tick marks
+            for (int i = 0; i < yMax - yMin; i += ySpace)
+            {
+                g.DrawLine(whitePen, 10 + (float)xMax * (600 / ((float)xMax - (float)xMin)), (float)Math.Abs(i) * (600 / ((float)yMax - (float)yMin)), -10 + (float)xMax * (600 / ((float)xMax - (float)xMin)), (float)Math.Abs(i) * (600 / ((float)yMax - (float)yMin)));
+
+            }
 
             //Horizontal Axis
             g.DrawLine(whitePen, 0, (float)yMax * (600 / ((float)yMax - (float)yMin)), CoordinatePlane.Width, (float)yMax * (600 / ((float)yMax - (float)yMin)));
@@ -53,6 +93,11 @@ namespace Chris_Parker_Assign4
 
         private float Convert_X_Point(float x)
         {
+            int xMin = Convert.ToInt16(xMinRange.Value);
+            int xMax = Convert.ToInt16(xMaxRange.Value);
+            int yMin = Convert.ToInt16(yMinRange.Value);
+            int yMax = Convert.ToInt16(yMaxRange.Value);
+
             float min = (float)xMin;
             float max = (float)xMax;
 
@@ -69,6 +114,11 @@ namespace Chris_Parker_Assign4
 
         private float Convert_Y_Point(float y)
         {
+            int xMin = Convert.ToInt16(xMinRange.Value);
+            int xMax = Convert.ToInt16(xMaxRange.Value);
+            int yMin = Convert.ToInt16(yMinRange.Value);
+            int yMax = Convert.ToInt16(yMaxRange.Value);
+
             float min = (float)yMin;
             float max = (float)yMax;
 
@@ -115,6 +165,11 @@ namespace Chris_Parker_Assign4
 
         private void linearGraph(object sender, EventArgs e)
         {
+            int xMin = Convert.ToInt16(xMinRange.Value);
+            int xMax = Convert.ToInt16(xMaxRange.Value);
+            int yMin = Convert.ToInt16(yMinRange.Value);
+            int yMax = Convert.ToInt16(yMaxRange.Value);
+
             Graphics g = CoordinatePlane.CreateGraphics();
 
 
@@ -363,6 +418,11 @@ namespace Chris_Parker_Assign4
 
         private void clearGraph(object sender, EventArgs e)
         {
+            int xMin = Convert.ToInt16(xMinRange.Value);
+            int xMax = Convert.ToInt16(xMaxRange.Value);
+            int yMin = Convert.ToInt16(yMinRange.Value);
+            int yMax = Convert.ToInt16(yMaxRange.Value);
+
             Graphics g = CoordinatePlane.CreateGraphics();
 
             SolidBrush paintItBlack = new SolidBrush(Color.Black);
