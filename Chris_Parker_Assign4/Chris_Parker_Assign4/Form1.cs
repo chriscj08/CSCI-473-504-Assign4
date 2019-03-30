@@ -14,8 +14,8 @@ namespace Chris_Parker_Assign4
     {
         private static Pen whitePen;
         private static Pen selectedPen;
-        private static int xMax = 5;
-        private static int xMin = -5;
+        private static int xMax = 10;
+        private static int xMin = -10;
         private static int yMax = 10;
         private static int yMin = -10;
 
@@ -38,6 +38,24 @@ namespace Chris_Parker_Assign4
 
         }
 
+        private void Set_Bounds(object sender, EventArgs e)
+        {
+            Graphics g = CoordinatePlane.CreateGraphics();
+
+            xMin = Convert.ToInt32(xMinRange.Value);
+            xMax = Convert.ToInt32(xMaxRange.Value);
+            yMin = Convert.ToInt32(yMinRange.Value);
+            yMax = Convert.ToInt32(yMaxRange.Value);
+
+            SolidBrush paintItBlack = new SolidBrush(Color.Black);
+            g.FillRectangle(paintItBlack, 0, 0, CoordinatePlane.Width, CoordinatePlane.Height);
+
+            //Horizontal Axis
+            g.DrawLine(whitePen, 0, (float)yMax * (600 / ((float)yMax - (float)yMin)), CoordinatePlane.Width, (float)yMax * (600 / ((float)yMax - (float)yMin)));
+            //Vertical Axis
+            g.DrawLine(whitePen, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), 0, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), CoordinatePlane.Height);
+        }
+
         private void DrawAxes(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -47,8 +65,25 @@ namespace Chris_Parker_Assign4
             //Vertical Axis
             g.DrawLine(whitePen, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), 0, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), CoordinatePlane.Height);
 
+        }
 
+        private void clearGraph(object sender, EventArgs e)
+        {
 
+            Graphics g = CoordinatePlane.CreateGraphics();
+
+            xMin = Convert.ToInt32(xMinRange.Value);
+            xMax = Convert.ToInt32(xMaxRange.Value);
+            yMin = Convert.ToInt32(yMinRange.Value);
+            yMax = Convert.ToInt32(yMaxRange.Value);
+
+            SolidBrush paintItBlack = new SolidBrush(Color.Black);
+            g.FillRectangle(paintItBlack, 0, 0, CoordinatePlane.Width, CoordinatePlane.Height);
+
+            //Horizontal Axis
+            g.DrawLine(whitePen, 0, (float)yMax * (600 / ((float)yMax - (float)yMin)), CoordinatePlane.Width, (float)yMax * (600 / ((float)yMax - (float)yMin)));
+            //Vertical Axis
+            g.DrawLine(whitePen, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), 0, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), CoordinatePlane.Height);
         }
 
         private float Convert_X_Point(float x)
@@ -190,8 +225,7 @@ namespace Chris_Parker_Assign4
         }
 
         private void quadGraph(object sender, EventArgs e)
-        {
-            //PointF[] points = new PointF[5];            
+        {                      
 
             Graphics g = CoordinatePlane.CreateGraphics();
 
@@ -212,78 +246,26 @@ namespace Chris_Parker_Assign4
                 selectedPen = new Pen(Color.Blue);
             }
 
-            List<PointF> pointList = new List<PointF>();
-            float scale = 600 / 10;
+            List<PointF> pointList = new List<PointF>();                        
+            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
+            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box
+            float AbsXMinR = Math.Abs(xMinR);
+            float AbsXMaxR = Math.Abs(xMaxR);
+            float scale = CoordinatePlane.Height/(AbsXMaxR+AbsXMinR);
             float a = Convert.ToSingle(quadA.Text) * scale;
             float b = Convert.ToSingle(quadB.Text) * scale;
             float c = Convert.ToSingle(quadC.Text) * scale;
-            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
-            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box          
 
             //loops through the range of xmin to xmax
             for (float x = xMinR; x < xMaxR; x++)
             {
                 //quad equation a,b,c,d are pulled from user entries
                 float y = (a * (x * x) + (b * x + c));
-                pointList.Add(new PointF((scale * 5) + x * scale, (scale * 5) - y));
+                pointList.Add(new PointF((scale * AbsXMinR) + x * scale, (scale * AbsXMaxR) - y));
             }
             PointF[] pointArray = pointList.ToArray();
 
-            g.DrawCurve(selectedPen, pointArray);
-
-            /*float x1;
-            float y1;
-            float x2;
-            float y2;
-            float xMid;
-            float yMid;
-            float x3;
-            float y3;
-            float x4;
-            float y4;
-
-            if (a != 0)
-            {
-                a *= -1;
-                b *= -1;
-
-                x1 = ((-1 * b) / (2 *  a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
-                
-                x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
-
-                a *= -1;
-                b *= -1;
-
-                xMid = (x1 + x4) / 2;
-                yMid = a * (xMid * xMid) + b * xMid + c;
-                x2 = (x1 + xMid) / 2;
-                y2 = a * (x2 * x2) + b * x2 + c;
-                x3 = (-1) * x2;
-                y3 = y2 = a * (x3 * x3) + b * x3 + c;
-
-                MessageBox.Show("");
-                x1 = Convert_X_Point(x1);
-
-                x2 = Convert_X_Point(x2);
-                y2 = Convert_Y_Point(y2);
-
-                xMid = Convert_X_Point(xMid);
-                yMid = Convert_Y_Point(yMid);
-
-                x3 = Convert_X_Point(x3);
-                y3 = Convert_Y_Point(y3);
-
-                x4 = Convert_X_Point(x4);
-
-                points[0] = new PointF(x1, (float)yMax);
-                points[1] = new PointF(x2, y2);
-                points[2] = new PointF(xMid, yMid);
-                points[3] = new PointF(x3, y3);
-                points[4] = new PointF(x4, (float)yMax);
-            }
-
-
-            g.DrawCurve(whitePen, points);*/
+            g.DrawCurve(selectedPen, pointArray);            
         }
 
         private void cubicGraph(object sender, EventArgs e)
@@ -307,14 +289,22 @@ namespace Chris_Parker_Assign4
                 selectedPen = new Pen(Color.Blue);
             }
 
-            List<PointF> pointList = new List<PointF>();
-            float scale = 600 / 20;
+            List<PointF> pointList = new List<PointF>();//create list of points
+            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
+            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box
+            float AbsXMinR = Math.Abs(xMinR);//gets absolute value of MinRangeX
+            float AbsXMaxR = Math.Abs(xMaxR);//gets absolute value of MaxRangeX
+            float yMinR = Convert.ToSingle(yMinRange.Value); //gets min y range and scales it to picture box
+            float yMaxR = Convert.ToSingle(yMaxRange.Value); //gets max y range and scales it to picture box
+            float AbsYMinR = Math.Abs(yMinR);
+            float AbsYMaxR = Math.Abs(yMaxR);
+            float scaleModX = (AbsXMinR + AbsXMaxR) / 2;
+            float scaleModY = (AbsYMinR + AbsYMaxR) / 2;
+            float scale = CoordinatePlane.Height / (AbsXMaxR + AbsXMinR);            
             float a = Convert.ToSingle(cubicA.Text) * scale;
             float b = Convert.ToSingle(cubicB.Text) * scale;
             float c = Convert.ToSingle(cubicC.Text) * scale;
-            float d = Convert.ToSingle(cubicD.Text) * scale;
-            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
-            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box          
+            float d = Convert.ToSingle(cubicD.Text) * scale;                 
 
             //loops through the range of xmin to xmax
             for (float x = xMinR; x < xMaxR; x++)
@@ -322,7 +312,7 @@ namespace Chris_Parker_Assign4
 
                 //cubic equation a,b,c,d are pulled from user entries
                 float y = ((a * (x * x * x) + (b * (x * x) + (c * x) + d)));
-                pointList.Add(new PointF((scale * 10) + x * scale, (scale * 10) - y));
+                pointList.Add(new PointF((scale * scaleModX) + x * scale, (scale * AbsXMaxR) - y));
             }
             PointF[] pointArray = pointList.ToArray();
 
@@ -334,6 +324,7 @@ namespace Chris_Parker_Assign4
         {
             Graphics g = CoordinatePlane.CreateGraphics();
 
+            //handles color selction
             if ((string)circleColor.SelectedValue == "White")
             {
                 selectedPen = new Pen(Color.White);
@@ -351,29 +342,28 @@ namespace Chris_Parker_Assign4
                 selectedPen = new Pen(Color.Blue);
             }
 
-            float scale = 600 / 20;
-            float h = Convert.ToSingle(circleH.Text) * scale;
-            float k = Convert.ToSingle(circleK.Text) * scale;
+            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
+            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box
+            float AbsXMinR = Math.Abs(xMinR);
+            float AbsXMaxR = Math.Abs(xMaxR);
+            float yMinR = Convert.ToSingle(yMinRange.Value); //gets min x range and scales it to picture box
+            float yMaxR = Convert.ToSingle(yMaxRange.Value); //gets max x range and scales it to picture box
+            float AbsYMinR = Math.Abs(yMinR);
+            float AbsYMaxR = Math.Abs(yMaxR);
+            float scaleModX = (AbsXMinR + AbsXMaxR)/2;
+            float scaleModY = (AbsYMinR + AbsYMaxR)/2;
+            float scaleX = CoordinatePlane.Height / (AbsXMaxR + AbsXMinR);
+            float scaleY = CoordinatePlane.Height / (AbsYMinR + AbsYMaxR);
+            float h = Convert.ToSingle(circleH.Text) * scaleX;
+            float k = Convert.ToSingle(circleK.Text) * scaleY;
             double tempR = Convert.ToSingle(circleR.Text);
-            float r = (float)Math.Sqrt(tempR) * scale;
+            float r = (float)Math.Sqrt(tempR) * scaleX;//scales the radius
 
-            g.DrawEllipse(selectedPen, h + (10 * scale) - r, (scale * 10) - k - r, r * 2, r * 2);
+            g.DrawEllipse(selectedPen, h + (scaleModX * scaleX) - r, (scaleY * scaleModY) - k - r, r * 2, r * 2);//draws ellipse
 
-        }
+        }        
 
-        private void clearGraph(object sender, EventArgs e)
-        {
-            Graphics g = CoordinatePlane.CreateGraphics();
-
-            SolidBrush paintItBlack = new SolidBrush(Color.Black);
-            g.FillRectangle(paintItBlack, 0, 0, CoordinatePlane.Width, CoordinatePlane.Height);
-
-            //Horizontal Axis
-            g.DrawLine(whitePen, 0, (Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))), CoordinatePlane.Width, (Math.Abs(yMin) * CoordinatePlane.Height / (Math.Abs(yMin) + Math.Abs(yMax))));
-            //Vertical Axis
-            g.DrawLine(whitePen, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), 0, (Math.Abs(xMin) * CoordinatePlane.Width / (Math.Abs(xMin) + Math.Abs(xMax))), CoordinatePlane.Height);
-        }
-
+        //These functions simply prevent the user from entering letters
         private void linearMTxtChange(object sender, EventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(linearM.Text, "  ^ [0-9]"))
@@ -617,6 +607,6 @@ namespace Chris_Parker_Assign4
 
             MessageBox.Show("X: " + coordinates.X + " Y: " + coordinates.Y);
 
-        }
+        }        
     }
 }

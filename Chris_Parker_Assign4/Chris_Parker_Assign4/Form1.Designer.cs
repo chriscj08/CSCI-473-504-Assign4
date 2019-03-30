@@ -100,6 +100,7 @@
             this.yMaxRange = new System.Windows.Forms.NumericUpDown();
             this.yMinRange = new System.Windows.Forms.NumericUpDown();
             this.xMaxRange = new System.Windows.Forms.NumericUpDown();
+            this.button10 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CoordinatePlane)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xMinRange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yInterval)).BeginInit();
@@ -660,7 +661,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(269, 466);
+            this.button9.Location = new System.Drawing.Point(269, 493);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(74, 23);
             this.button9.TabIndex = 64;
@@ -727,6 +728,11 @@
             this.xMinRange.Name = "xMinRange";
             this.xMinRange.Size = new System.Drawing.Size(39, 20);
             this.xMinRange.TabIndex = 74;
+            this.xMinRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.xMinRange.ValueChanged += new System.EventHandler(this.xMinChanged);
             // 
             // yInterval
@@ -735,6 +741,11 @@
             this.yInterval.Name = "yInterval";
             this.yInterval.Size = new System.Drawing.Size(32, 20);
             this.yInterval.TabIndex = 76;
+            this.yInterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // xInterval
             // 
@@ -742,6 +753,11 @@
             this.xInterval.Name = "xInterval";
             this.xInterval.Size = new System.Drawing.Size(32, 20);
             this.xInterval.TabIndex = 77;
+            this.xInterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // yMaxRange
             // 
@@ -754,6 +770,11 @@
             this.yMaxRange.Name = "yMaxRange";
             this.yMaxRange.Size = new System.Drawing.Size(41, 20);
             this.yMaxRange.TabIndex = 78;
+            this.yMaxRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.yMaxRange.ValueChanged += new System.EventHandler(this.yMaxChanged);
             // 
             // yMinRange
@@ -767,6 +788,11 @@
             this.yMinRange.Name = "yMinRange";
             this.yMinRange.Size = new System.Drawing.Size(38, 20);
             this.yMinRange.TabIndex = 79;
+            this.yMinRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.yMinRange.ValueChanged += new System.EventHandler(this.yMinChanged);
             // 
             // xMaxRange
@@ -780,7 +806,22 @@
             this.xMaxRange.Name = "xMaxRange";
             this.xMaxRange.Size = new System.Drawing.Size(36, 20);
             this.xMaxRange.TabIndex = 80;
+            this.xMaxRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.xMaxRange.ValueChanged += new System.EventHandler(this.xMaxChanged);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(269, 461);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(74, 23);
+            this.button10.TabIndex = 81;
+            this.button10.Text = "Set Bounds";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.Set_Bounds);
             // 
             // Form1
             // 
@@ -788,6 +829,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(978, 620);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.xMaxRange);
             this.Controls.Add(this.yMinRange);
             this.Controls.Add(this.yMaxRange);
@@ -949,6 +991,7 @@
         private System.Windows.Forms.NumericUpDown yMaxRange;
         private System.Windows.Forms.NumericUpDown yMinRange;
         private System.Windows.Forms.NumericUpDown xMaxRange;
+        private System.Windows.Forms.Button button10;
     }
 }
 
