@@ -718,7 +718,7 @@
             // 
             // xMinRange
             // 
-            this.xMinRange.Location = new System.Drawing.Point(3, 482);
+            this.xMinRange.Location = new System.Drawing.Point(10, 481);
             this.xMinRange.Minimum = new decimal(new int[] {
             100,
             0,
@@ -727,6 +727,11 @@
             this.xMinRange.Name = "xMinRange";
             this.xMinRange.Size = new System.Drawing.Size(39, 20);
             this.xMinRange.TabIndex = 74;
+            this.xMinRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.xMinRange.ValueChanged += new System.EventHandler(this.xMinChanged);
             // 
             // yInterval
@@ -735,6 +740,11 @@
             this.yInterval.Name = "yInterval";
             this.yInterval.Size = new System.Drawing.Size(32, 20);
             this.yInterval.TabIndex = 76;
+            this.yInterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // xInterval
             // 
@@ -742,6 +752,11 @@
             this.xInterval.Name = "xInterval";
             this.xInterval.Size = new System.Drawing.Size(32, 20);
             this.xInterval.TabIndex = 77;
+            this.xInterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // yMaxRange
             // 
@@ -754,6 +769,11 @@
             this.yMaxRange.Name = "yMaxRange";
             this.yMaxRange.Size = new System.Drawing.Size(41, 20);
             this.yMaxRange.TabIndex = 78;
+            this.yMaxRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.yMaxRange.ValueChanged += new System.EventHandler(this.yMaxChanged);
             // 
             // yMinRange
@@ -767,6 +787,11 @@
             this.yMinRange.Name = "yMinRange";
             this.yMinRange.Size = new System.Drawing.Size(38, 20);
             this.yMinRange.TabIndex = 79;
+            this.yMinRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.yMinRange.ValueChanged += new System.EventHandler(this.yMinChanged);
             // 
             // xMaxRange
@@ -780,6 +805,11 @@
             this.xMaxRange.Name = "xMaxRange";
             this.xMaxRange.Size = new System.Drawing.Size(36, 20);
             this.xMaxRange.TabIndex = 80;
+            this.xMaxRange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.xMaxRange.ValueChanged += new System.EventHandler(this.xMaxChanged);
             // 
             // Form1
