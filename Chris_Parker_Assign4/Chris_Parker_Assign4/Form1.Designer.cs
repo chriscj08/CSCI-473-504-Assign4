@@ -155,7 +155,6 @@
             this.quadA.Name = "quadA";
             this.quadA.Size = new System.Drawing.Size(25, 20);
             this.quadA.TabIndex = 6;
-            this.quadA.TextChanged += new System.EventHandler(this.quadATxtChange);
             this.quadA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.quadAKeyPress);
             // 
             // quadC

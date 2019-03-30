@@ -12,12 +12,12 @@ namespace Chris_Parker_Assign4
 {
     public partial class Form1 : Form
     {
-        private static Pen whitePen;        
+        private static Pen whitePen;
         private static Pen selectedPen;
-        private static int xMax = 4;
-        private static int xMin = -4;
-        private static int yMax = 4;
-        private static int yMin = -4;
+        private static int xMax = 10;
+        private static int xMin = -10;
+        private static int yMax = 10;
+        private static int yMin = -10;
 
         public Form1()
         {
@@ -43,7 +43,7 @@ namespace Chris_Parker_Assign4
             Graphics g = e.Graphics;
 
             //Horizontal Axis
-            g.DrawLine(whitePen, 0, (float) yMax * (600 / ((float)yMax - (float)yMin)), CoordinatePlane.Width, (float)yMax * (600 / ((float)yMax - (float)yMin)));
+            g.DrawLine(whitePen, 0, (float)yMax * (600 / ((float)yMax - (float)yMin)), CoordinatePlane.Width, (float)yMax * (600 / ((float)yMax - (float)yMin)));
             //Vertical Axis
             g.DrawLine(whitePen, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), 0, (float)Math.Abs(xMin) * (600 / ((float)xMax - (float)xMin)), CoordinatePlane.Height);
 
@@ -51,14 +51,14 @@ namespace Chris_Parker_Assign4
 
         }
 
-        private float Convert_X_Point (float x)
+        private float Convert_X_Point(float x)
         {
-            float min = (float) xMin;
-            float max = (float) xMax;
+            float min = (float)xMin;
+            float max = (float)xMax;
 
             if (xMin < 0)
             {
-                return ((x + Math.Abs(min))*(600 / (max - min)));
+                return ((x + Math.Abs(min)) * (600 / (max - min)));
             }
             else
             {
@@ -67,7 +67,7 @@ namespace Chris_Parker_Assign4
 
         }
 
-        private float Convert_Y_Point (float y)
+        private float Convert_Y_Point(float y)
         {
             float min = (float)yMin;
             float max = (float)yMax;
@@ -135,7 +135,7 @@ namespace Chris_Parker_Assign4
                 selectedPen = new Pen(Color.Blue);
             }
 
-            
+
             float m = float.Parse(linearM.Text);
             float b = float.Parse(linearB.Text);
             float y = (float)yMax;
@@ -183,24 +183,55 @@ namespace Chris_Parker_Assign4
                 y1 = Convert_Y_Point(y1);
                 y2 = Convert_Y_Point(y2);
             }
-            
 
-            g.DrawLine(whitePen, x1, y1, x2, y2);
-                      
+
+            g.DrawLine(selectedPen, x1, y1, x2, y2);
+
         }
 
         private void quadGraph(object sender, EventArgs e)
         {
+            //PointF[] points = new PointF[5];            
+
             Graphics g = CoordinatePlane.CreateGraphics();
-            PointF[] points = new PointF[5];
-            bool check = false;
-            bool otherCheck = false;
 
-            float a = float.Parse(quadA.Text);
-            float b = float.Parse(quadB.Text);
-            float c = float.Parse(quadC.Text);
+            if ((string)quadColor.SelectedValue == "White")
+            {
+                selectedPen = new Pen(Color.White);
+            }
+            else if ((string)quadColor.SelectedValue == "Red")
+            {
+                selectedPen = new Pen(Color.Red);
+            }
+            else if ((string)quadColor.SelectedValue == "Green")
+            {
+                selectedPen = new Pen(Color.Green);
+            }
+            else if ((string)quadColor.SelectedValue == "Blue")
+            {
+                selectedPen = new Pen(Color.Blue);
+            }
 
-            float x1;
+            List<PointF> pointList = new List<PointF>();
+            float scale = 600 / 20;
+            float a = Convert.ToSingle(quadA.Text) * scale;
+            float b = Convert.ToSingle(quadB.Text) * scale;
+            float c = Convert.ToSingle(quadC.Text) * scale;
+            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
+            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box          
+
+            //loops through the range of xmin to xmax
+            for (float x = xMinR; x < xMaxR; x++)
+            {
+                //quad equation a,b,c,d are pulled from user entries
+                float y = (a * (x * x) + (b * x + c));
+                pointList.Add(new PointF((scale * 10) + x * scale, (scale * 10) - y));
+            }
+            PointF[] pointArray = pointList.ToArray();
+
+            g.DrawCurve(selectedPen, pointArray);
+
+            /*float x1;
             float y1;
             float x2;
             float y2;
@@ -213,51 +244,24 @@ namespace Chris_Parker_Assign4
 
             if (a != 0)
             {
-                if (a > 0)
-                {
-                    a *= -1;
-                    check = true;
-                }
-               
-                if (b > 0)
-                {
-                    b *= -1;
-                    otherCheck = true;
-                }
+                a *= -1;
+                b *= -1;
 
-                if(check)
-                {
-                    x1 = ((-1 * b) / (2 * a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
-
-                    x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
-                }
-                else
-                {
-                    x1 = ((-1 * b) / (2 * a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)Math.Abs(yMin) - c)) / (2 * a));
-
-                    x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)Math.Abs(yMin) - c)) / (2 * a));
-                }
+                x1 = ((-1 * b) / (2 *  a)) - ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
                 
+                x4 = ((-1 * b) / (2 * a)) + ((float)Math.Sqrt((b * b) - 4 * a * ((float)yMax - c)) / (2 * a));
 
-                if (check)
-                {
-                    a *= -1;
-                }
-                
-                if(otherCheck)
-                {
-                    b *= -1;
-                }
-                
-                MessageBox.Show(b.ToString());
+                a *= -1;
+                b *= -1;
+
                 xMid = (x1 + x4) / 2;
                 yMid = a * (xMid * xMid) + b * xMid + c;
                 x2 = (x1 + xMid) / 2;
                 y2 = a * (x2 * x2) + b * x2 + c;
-                x3 = (xMid + x4) / 2;
+                x3 = (-1) * x2;
                 y3 = y2 = a * (x3 * x3) + b * x3 + c;
 
-                MessageBox.Show("x1: " + x1.ToString() + " x2: " + x2.ToString() + " xMid: " + xMid.ToString() + " x3: " + x3.ToString() + " x4: " + x4.ToString());
+                MessageBox.Show("");
                 x1 = Convert_X_Point(x1);
 
                 x2 = Convert_X_Point(x2);
@@ -271,30 +275,58 @@ namespace Chris_Parker_Assign4
 
                 x4 = Convert_X_Point(x4);
 
-                if (a > 0)
-                {
-                    points[0] = new PointF(x1, (float) 0);
-                    points[1] = new PointF(x2, y2);
-                    points[2] = new PointF(xMid, yMid);
-                    points[3] = new PointF(x3, y3);
-                    points[4] = new PointF(x4, (float)0);
-                }
-                else
-                {
-                    points[0] = new PointF(x1, (float) CoordinatePlane.Height);
-                    points[1] = new PointF(x2, y2);
-                    points[2] = new PointF(xMid, yMid);
-                    points[3] = new PointF(x3, y3);
-                    points[4] = new PointF(x4, (float) CoordinatePlane.Height);
-                }
+                points[0] = new PointF(x1, (float)yMax);
+                points[1] = new PointF(x2, y2);
+                points[2] = new PointF(xMid, yMid);
+                points[3] = new PointF(x3, y3);
+                points[4] = new PointF(x4, (float)yMax);
             }
 
-            
-            g.DrawCurve(whitePen, points);
+
+            g.DrawCurve(whitePen, points);*/
         }
 
         private void cubicGraph(object sender, EventArgs e)
         {
+            Graphics g = CoordinatePlane.CreateGraphics();
+
+            if ((string)cubicColor.SelectedValue == "White")
+            {
+                selectedPen = new Pen(Color.White);
+            }
+            else if ((string)cubicColor.SelectedValue == "Red")
+            {
+                selectedPen = new Pen(Color.Red);
+            }
+            else if ((string)cubicColor.SelectedValue == "Green")
+            {
+                selectedPen = new Pen(Color.Green);
+            }
+            else if ((string)cubicColor.SelectedValue == "Blue")
+            {
+                selectedPen = new Pen(Color.Blue);
+            }
+
+            List<PointF> pointList = new List<PointF>();
+            float scale = 600 / 20;
+            float a = Convert.ToSingle(cubicA.Text) * scale;
+            float b = Convert.ToSingle(cubicB.Text) * scale;
+            float c = Convert.ToSingle(cubicC.Text) * scale;
+            float d = Convert.ToSingle(cubicD.Text) * scale;
+            float xMinR = Convert.ToSingle(xMinRange.Value); //gets min x range and scales it to picture box
+            float xMaxR = Convert.ToSingle(xMaxRange.Value); //gets max x range and scales it to picture box          
+
+            //loops through the range of xmin to xmax
+            for (float x = xMinR; x < xMaxR; x++)
+            {
+
+                //cubic equation a,b,c,d are pulled from user entries
+                float y = ((a * (x * x * x) + (b * (x * x) + (c * x) + d)));
+                pointList.Add(new PointF((scale * 10) + x * scale, (scale * 10) - y));
+            }
+            PointF[] pointArray = pointList.ToArray();
+
+            g.DrawCurve(selectedPen, pointArray);
 
         }
 
@@ -317,16 +349,16 @@ namespace Chris_Parker_Assign4
             else if ((string)circleColor.SelectedValue == "Blue")
             {
                 selectedPen = new Pen(Color.Blue);
-            }            
+            }
 
             float scale = 600 / 20;
-            float h = Convert.ToInt32(circleH.Text)*scale;
-            float k = Convert.ToInt32(circleK.Text)*scale;
-            double tempR = Convert.ToInt32(circleR.Text);
-            float r = (float)Math.Sqrt(tempR)*scale; 
+            float h = Convert.ToSingle(circleH.Text) * scale;
+            float k = Convert.ToSingle(circleK.Text) * scale;
+            double tempR = Convert.ToSingle(circleR.Text);
+            float r = (float)Math.Sqrt(tempR) * scale;
 
-            g.DrawEllipse(selectedPen, h+(10*scale)-r, (scale*10)-k-r, r*2,r*2);
-            
+            g.DrawEllipse(selectedPen, h + (10 * scale) - r, (scale * 10) - k - r, r * 2, r * 2);
+
         }
 
         private void clearGraph(object sender, EventArgs e)
@@ -584,7 +616,7 @@ namespace Chris_Parker_Assign4
             Point coordinates = me.Location;
 
             MessageBox.Show("X: " + coordinates.X + " Y: " + coordinates.Y);
-            
+
         }
     }
 }
